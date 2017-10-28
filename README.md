@@ -1,10 +1,6 @@
 # regular-state
 
-regular-state是基于[stateman](https://github.com/leeluolee/stateman) 和 Regular的单页应用框架.
-
-## 指南
-
-[文档指南](http://regularjs.github.io/regular-state/)
+santer 是基于[stateman](https://github.com/leeluolee/stateman) 和 San 的单页应用框架.
 
 ## 特性
 
@@ -19,7 +15,7 @@ regular-state是基于[stateman](https://github.com/leeluolee/stateman) 和 Regu
 
 ## 浏览器支持
 
-**regular-state**可运行在支持ES5的浏览器，并且需要Promise的支持. 低级浏览器请使用类似[promise-polyfill](https://github.com/taylorhakes/promise-polyfill)的垫片脚本
+**santer**可运行在支持ES5的浏览器，并且需要Promise的支持. 低级浏览器请使用类似[promise-polyfill](https://github.com/taylorhakes/promise-polyfill)的垫片脚本
 
 
 ## 贡献
