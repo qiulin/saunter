@@ -1,6 +1,6 @@
 require.config({
     paths: {
-        'san-state': '../san-state',
+        'santer': '../santer',
         'san': './lib/san.dev',
         'stateman': './lib/stateman'
     },
@@ -8,7 +8,7 @@ require.config({
         'restate': ['stateman']
     }
 })
-require(['san', 'san-state'], function (san, sanState) {
+require(['san', 'santer'], function (san, santer) {
 
     var App = san.defineComponent({
         template:
@@ -37,12 +37,12 @@ require(['san', 'san-state'], function (san, sanState) {
    `
     });
 
-    var stateman = restate({
+    var router = santer({
         view: document.getElementById('app'),
         Component: san.Component
     })
 
-    stateman.state('app', App, '')
+    router.state('app', App, '')
         .state('app.blog', Blog)
         .state('app.chat', Chat)
         .start({html5: false, prefix: "!"})

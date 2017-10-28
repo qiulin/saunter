@@ -31,7 +31,7 @@
         return allStates
     }
 
-    var sanState = function (option) {
+    var santer = function (option) {
         option = option || {};
         var stateman = option.stateman || new StateMan(option);
         var preState = stateman.state;
@@ -213,8 +213,8 @@
         return stateman;
     }
 
-    sanState.StateMan = StateMan;
+    santer.StateMan = StateMan;
 
-    return sanState;
+    return santer;
 
 }));
