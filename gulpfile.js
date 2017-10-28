@@ -11,9 +11,9 @@ var pkg = require("./package.json");
 var wpConfig = {
 
  output: {
-    filename: "restate-full.js",
+    filename: "san-state-full.js",
     library: "restate",
-    libraryTarget: "umd"
+    libraryTarget: "amd"
   }
   
 }
