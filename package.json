@@ -1,33 +1,33 @@
 {
-  "name": "regular-state",
+  "name": "saunter",
   "version": "0.2.1",
-  "description": "an SPA(single page application) foundation for regularjs that powerd by stateman",
+  "description": "an SPA(single page application) foundation for Sanjs that powerd by stateman",
   "keywords": [
     "stateman",
     "regularjs",
     "state",
     "spa"
   ],
-  "main": "restate.js",
+  "main": "saunter.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:regularjs/regular-state"
+    "url": "git@github.com:qiulin/saunter"
   },
   "author": {
-    "name": "leeluolee",
-    "email": "oe.zheng@gmail.com"
+    "name": "qiulin",
+    "email": "xcodeman@gmail.com"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/regularjs/regular-state/issues"
+    "url": "https://github.com/qiulin/saunter/issues"
   },
-  "homepage": "https://github.com/regularjs/regular-state",
+  "homepage": "https://github.com/qiulin/saunter",
   "dependencies": {
     "stateman": "^0.2.0"
   },
   "devDependencies": {
     "gulp-gh-pages": "^0.4.0",
-    "regularjs": "^0.4.3",
+    "san": "^3.2.9",
     "requirejs": "^2.1.15",
     "puer": "^1.0.8",
     "gulp-webpack": "^0.3.0",

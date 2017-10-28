@@ -1,14 +1,14 @@
 {
-  "name": "regular-state",
+  "name": "saunter",
   "version": "0.2.1",
   "main": "restate.js",
-  "description": "an SPA(single page application) foundation for regularjs that powerd by stateman",
+  "description": "an SPA(single page application) foundation for Sanjs that powerd by stateman",
   "keywords": [
     "router",
     "state",
     "spa"
   ],
-  "authors": "@leeluolee <87399126@163.com>",
+  "authors": "@qiulin <xcodeman@gmail.com>",
   "license": "MIT",
   "ignore": [
     ".*",

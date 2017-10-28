@@ -1,14 +1,14 @@
 require.config({
     paths: {
-        'santer': '../santer',
+        'saunter': '../saunter',
         'san': './lib/san.dev',
         'stateman': './lib/stateman'
     },
     shims: {
-        'restate': ['stateman']
+        'saunter': ['stateman']
     }
 })
-require(['san', 'santer'], function (san, santer) {
+require(['san', 'saunter'], function (san, saunter) {
 
     var App = san.defineComponent({
         template:
@@ -37,7 +37,7 @@ require(['san', 'santer'], function (san, santer) {
    `
     });
 
-    var router = santer({
+    var router = saunter({
         view: document.getElementById('app'),
         Component: san.Component
     })
