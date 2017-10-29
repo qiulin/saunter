@@ -5,17 +5,17 @@ var webpack = require('gulp-webpack');
 var jshint = require('gulp-jshint');
 
 
-var pkg = require("./package.json");  
+var pkg = require("./package.json");
 
-    
+
 var wpConfig = {
 
  output: {
-    filename: "san-state-full.js",
-    library: "restate",
+    filename: "saunter-full.js",
+    library: "saunter",
     libraryTarget: "amd"
   }
-  
+
 }
 
 
@@ -27,9 +27,9 @@ gulp.task('jshint', function(){
 
 })
 
- 
+
 gulp.task('build', ['jshint'], function() {
-  gulp.src("restate.js")
+  gulp.src("saunter.js")
     .pipe(gulp.dest('./example'))
     .pipe(webpack(wpConfig))
     .pipe(wrap(signatrue))
@@ -45,7 +45,7 @@ gulp.task("example:bower", shell.task([
 
 
 gulp.task("example:requirejs", ["example:bower"], shell.task([
-  "node ./example/requirejs/bundle.js"
+  "node ./example/lib/require.js"
 ]))
 
 gulp.task("example:browserify" ,["example:bower"], function(){
@@ -56,7 +56,7 @@ gulp.task("example:browserify" ,["example:bower"], function(){
 gulp.task("example", [  "example:requirejs", "example:browserify"] )
 
 gulp.task('watch', ["build", "example"], function(){
-  gulp.watch(['restate.js'], ['build'])
+  gulp.watch(['saunter.js'], ['build'])
 })
 
 

@@ -1,11 +1,11 @@
 {
   "name": "saunter",
   "version": "0.2.1",
-  "main": "restate.js",
+  "main": "saunter.js",
   "description": "an SPA(single page application) foundation for Sanjs that powerd by stateman",
   "keywords": [
     "router",
-    "state",
+    "san",
     "spa"
   ],
   "authors": "@qiulin <xcodeman@gmail.com>",
