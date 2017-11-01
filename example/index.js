@@ -15,8 +15,8 @@ require(['san', 'saunter'], function (san, saunter) {
             `<div>
        <h2>主页</h2>
        <div>
-         <a href='#!/chat'>Go Chat</a>|
-         <a href='#!/blog'>Go Blog</a>
+         <a href='#/chat'>Go Chat</a>|
+         <a href='#/blog'>Go Blog</a>
        </div>
        <router-view></router-view>
       </div>
@@ -45,7 +45,7 @@ require(['san', 'saunter'], function (san, saunter) {
     router.state('app', App, '')
         .state('app.blog', Blog)
         .state('app.chat', Chat)
-        .start({html5: false, prefix: "!"})
+        .start();
 
 
 })
