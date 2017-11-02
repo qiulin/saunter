@@ -9,7 +9,7 @@
         module.exports = factory(require('stateman'));
     } else {
         // Browser globals (root is window)
-        root.sanState = factory(root.StateMan);
+        root.saunter = factory(root.StateMan);
     }
 }(this, function (StateMan) {
 
@@ -59,13 +59,12 @@
             if (BaseComponent) {
                 // 1. regular template or parsed ast
                 if (typeof Component === "string" || Array.isArray(Component)) {
-                    Component = _.extend(BaseComponent, {
-                        template: Component
-                    })
+                    Component = san.inherits(BaseComponent);
+                    Component.prototype.template = Component;
                 }
                 // 2. it an Object, but need regularify
-                if (typeof Component === "object" && Component.regularify) {
-                    Component = san.inherits(BaseComponent);
+                if (typeof Component === "object") {
+                    Component = san.inherits(Component);
                 }
             }
 
@@ -173,6 +172,7 @@
 
                     if (!component) return;
 
+                    // FIXME 如何把数据合并到data中
                     _.extend(component.data, data, true);
 
                     if (parent.component) {
@@ -183,6 +183,7 @@
                     }
 
                     component.attach(view);
+
                     var result = component.enter && component.enter(option);
 
                     return result;
