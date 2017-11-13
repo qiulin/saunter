@@ -60,7 +60,7 @@ define("saunter", [], function() { return /******/ (function(modules) { // webpa
 	        module.exports = factory(require('stateman'));
 	    } else {
 	        // Browser globals (root is window)
-	        root.sanState = factory(root.StateMan);
+	        root.saunter = factory(root.StateMan);
 	    }
 	}(this, function (StateMan) {
 
@@ -110,13 +110,12 @@ define("saunter", [], function() { return /******/ (function(modules) { // webpa
 	            if (BaseComponent) {
 	                // 1. regular template or parsed ast
 	                if (typeof Component === "string" || Array.isArray(Component)) {
-	                    Component = _.extend(BaseComponent, {
-	                        template: Component
-	                    })
+	                    Component = san.inherits(BaseComponent);
+	                    Component.prototype.template = Component;
 	                }
 	                // 2. it an Object, but need regularify
-	                if (typeof Component === "object" && Component.regularify) {
-	                    Component = san.inherits(BaseComponent);
+	                if (typeof Component === "object") {
+	                    Component = san.inherits(Component);
 	                }
 	            }
 
@@ -149,7 +148,7 @@ define("saunter", [], function() { return /******/ (function(modules) { // webpa
 	                },
 
 	                canEnter: function (option) {
-	                    var data = {$param: option.param},
+	                    var data = {param: option.param},
 	                        component = this.component,
 	                        // if component is not exist or required to be rebuilded when entering.
 	                        noComponent = !component,
@@ -160,9 +159,9 @@ define("saunter", [], function() { return /******/ (function(modules) { // webpa
 	                        component = this.component = new Component({
 	                            data: data,
 
-	                            $state: stateman,
+	                            state: stateman,
 
-	                            $stateName: name,
+	                            stateName: name,
 
 	                            /**
 	                             * notify other module
@@ -172,7 +171,7 @@ define("saunter", [], function() { return /******/ (function(modules) { // webpa
 	                             * @param  {Whatever} param   event param
 	                             * @return {Component} this
 	                             */
-	                            $notify: function (stateName, type, param) {
+	                            notify: function (stateName, type, param) {
 
 	                                var pattern, eventObj, state;
 
@@ -218,22 +217,26 @@ define("saunter", [], function() { return /******/ (function(modules) { // webpa
 	                enter: function (option) {
 
 
-	                    var data = {$param: option.param};
+	                    var data = {param: option.param};
 	                    var component = this.component;
 	                    var parent = this.parent, view;
 
 	                    if (!component) return;
 
-	                    _.extend(component.data, data, true);
+	                    // FIXME 如何把数据合并到data中
+	                    // _.extend(component.data, data, true);
+	                    var vmData = component.data.get();
+	                    _.extend(vmData, data);
 
 	                    if (parent.component) {
 	                        view = parent.component.el.getElementsByTagName('router-view')[0];
-	                        if (!view) throw this.parent.name + " should have a element with [s-ref=view]";
+	                        if (!view) throw this.parent.name + " should have a element with [router-view]";
 	                    } else {
 	                        view = globalView;
 	                    }
 
 	                    component.attach(view);
+
 	                    var result = component.enter && component.enter(option);
 
 	                    return result;

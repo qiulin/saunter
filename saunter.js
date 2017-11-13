@@ -97,7 +97,7 @@
                 },
 
                 canEnter: function (option) {
-                    var data = {$param: option.param},
+                    var data = {param: option.param},
                         component = this.component,
                         // if component is not exist or required to be rebuilded when entering.
                         noComponent = !component,
@@ -108,9 +108,9 @@
                         component = this.component = new Component({
                             data: data,
 
-                            $state: stateman,
+                            state: stateman,
 
-                            $stateName: name,
+                            stateName: name,
 
                             /**
                              * notify other module
@@ -120,7 +120,7 @@
                              * @param  {Whatever} param   event param
                              * @return {Component} this
                              */
-                            $notify: function (stateName, type, param) {
+                            notify: function (stateName, type, param) {
 
                                 var pattern, eventObj, state;
 
@@ -166,18 +166,20 @@
                 enter: function (option) {
 
 
-                    var data = {$param: option.param};
+                    var data = {param: option.param};
                     var component = this.component;
                     var parent = this.parent, view;
 
                     if (!component) return;
 
                     // FIXME 如何把数据合并到data中
-                    _.extend(component.data, data, true);
+                    // _.extend(component.data, data, true);
+                    var vmData = component.data.get();
+                    _.extend(vmData, data);
 
                     if (parent.component) {
                         view = parent.component.el.getElementsByTagName('router-view')[0];
-                        if (!view) throw this.parent.name + " should have a element with [s-ref=view]";
+                        if (!view) throw this.parent.name + " should have a element with [router-view]";
                     } else {
                         view = globalView;
                     }
