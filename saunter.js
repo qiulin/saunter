@@ -78,91 +78,44 @@
             var state = {
                 component: null,
 
-                // @TODO:
                 canUpdate: function (option) {
-
                     var canUpdate = this.component && this.component.canUpdate;
 
                     if (canUpdate) return this.component.canUpdate(option);
+
+                    return true
                 },
 
 
                 canLeave: function (option) {
-
-
+                    // TODO: 实现 canLeave
                     var canLeave = this.component && this.component.canLeave;
 
                     if (canLeave) return this.component.canLeave(option);
 
+                    return true
                 },
 
                 canEnter: function (option) {
-                    var data = {param: option.param},
-                        component = this.component,
-                        // if component is not exist or required to be rebuilded when entering.
-                        noComponent = !component,
-                        view;
-
-                    if (noComponent) {
-
-                        component = this.component = new Component({
-                            data: data,
-
-                            state: stateman,
-
-                            stateName: name,
-
-                            /**
-                             * notify other module
-                             * @param  {String} stateName module's stateName
-                             *         you can pass wildcard(*) for
-                             *
-                             * @param  {Whatever} param   event param
-                             * @return {Component} this
-                             */
-                            notify: function (stateName, type, param) {
-
-                                var pattern, eventObj, state;
-
-                                if (!stateName) return;
-
-                                if (~stateName.indexOf('*')) {
-
-                                    pattern = new RegExp(
-                                        stateName
-                                            .replace('.', '\\.')
-                                            .replace(/\*\*|\*/, function (cap) {
-                                                if (cap === '**') return '.*';
-                                                else return '[^.]*';
-                                            })
-                                    );
-
-                                    getMatchStates.forEach(function (state) {
-                                        if (state.component) state.component.fire(type, {
-                                            param: param,
-                                            from: name,
-                                            to: state.stateName
-                                        })
-                                    })
-
-                                } else {
-                                    state = stateman.state(stateName);
-                                    if (!state || !state.component) return
-                                    state.component.fire(type, {
-                                        param: param,
-                                        from: name,
-                                        to: stateName
-                                    })
-                                }
-
-                            }
-                        });
-                    }
+                    // TODO: 实现 canEnter
                     var canEnter = this.component && this.component.canEnter;
-
                     if (canEnter) return this.component.canEnter(option);
+                    return true
                 },
 
+                /**
+                 *
+                 * @param option
+                 *
+                 * option.phase
+                 * option.param
+                 * option.previous
+                 * option.current
+                 * option.async
+                 * option.stop
+                 *
+                 * @returns {enter|*}
+                 */
                 enter: function (option) {
 
 
@@ -176,6 +129,7 @@
                     // _.extend(component.data, data, true);
                     var vmData = component.data.get();
                     _.extend(vmData, data);
+                    component.set(vmData)
 
                     if (parent.component) {
                         view = parent.component.el.getElementsByTagName('router-view')[0];
@@ -187,7 +141,6 @@
                     component.attach(view);
 
                     var result = component.enter && component.enter(option);
-
                     return result;
                 },
                 leave: function (option) {
