@@ -170,17 +170,17 @@ define("saunter", [], function() { return /******/ (function(modules) { // webpa
 	                enter: function (option) {
 
 
-	                    var data = {param: option.param};
+	                    // var data = {param: option.param};
 	                    var component = this.component;
 	                    var parent = this.parent, view;
 
 	                    if (!component) return;
 
-	                    // FIXME 如何把数据合并到data中
 	                    // _.extend(component.data, data, true);
-	                    var vmData = component.data.get();
-	                    _.extend(vmData, data);
-	                    component.set(vmData)
+	                    // var vmData = component.data.get();
+	                    // _.extend(vmData, data);
+
+	                    component.data.set('param', option.param);
 
 	                    if (parent.component) {
 	                        view = parent.component.el.getElementsByTagName('router-view')[0];
