@@ -148,6 +148,66 @@ define("saunter", [], function() { return /******/ (function(modules) { // webpa
 	                },
 
 	                canEnter: function (option) {
+	                    var data = {param: option.param},
+	                        component = this.component,
+	                        // if component is not exist or required to be rebuilded when entering.
+	                        noComponent = !component,
+	                        view;
+
+	                    if (noComponent) {
+
+	                        component = this.component = new Component({
+	                            data: data,
+
+	                            state: stateman,
+
+	                            stateName: name,
+
+	                            /**
+	                             * notify other module
+	                             * @param  {String} stateName module's stateName
+	                             *         you can pass wildcard(*) for
+	                             *
+	                             * @param  {Whatever} param   event param
+	                             * @return {Component} this
+	                             */
+	                            notify: function (stateName, type, param) {
+
+	                                var pattern, eventObj, state;
+
+	                                if (!stateName) return;
+
+	                                if (~stateName.indexOf('*')) {
+
+	                                    pattern = new RegExp(
+	                                        stateName.replace('.', '\\.').replace(/\*\*|\*/, function (cap) {
+	                                            if (cap === '**') return '.*';
+	                                            else return '[^.]*';
+	                                        })
+	                                    );
+
+	                                    getMatchStates.forEach(function (state) {
+	                                        if (state.component) state.component.fire(type, {
+	                                            param: param,
+	                                            from: name,
+	                                            to: state.stateName
+	                                        });
+	                                    });
+
+	                                } else {
+	                                    state = stateman.state(stateName);
+	                                    if (!state || !state.component) return;
+	                                    state.component.fire(type, {
+	                                        param: param,
+	                                        from: name,
+	                                        to: stateName
+	                                    });
+	                                }
+
+	                            }
+	                        });
+	                    }
+
 	                    // TODO: 实现 canEnter
 	                    var canEnter = this.component && this.component.canEnter;
 	                    if (canEnter) return this.component.canEnter(option);
